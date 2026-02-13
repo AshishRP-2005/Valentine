@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💌</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ff5f8f,#ffc2d1);
+}
+
+/* Floating hearts */
+.heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:18px;
+    animation:float 8s linear infinite;
+    opacity:.6;
+}
+@keyframes float{
+    0%{transform:translateY(0);opacity:.6}
+    100%{transform:translateY(-110vh);opacity:0}
+}
+
+/* Main screen */
+.screen{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    transition:.6s ease;
+}
+
+.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+/* Envelope */
+.envelope{
+    position:relative;
+    width:260px;
+    height:160px;
+    perspective:1000px;
+    margin-bottom:25px;
+}
+
+.base{
+    width:100%;
+    height:100%;
+    background:#ff4d6d;
+    border-radius:12px;
+    position:absolute;
+    bottom:0;
+}
+
+.flap{
+    width:100%;
+    height:100%;
+    background:#ff006e;
+    clip-path:polygon(0 0,50% 65%,100% 0);
+    transform-origin:top;
+    transition:transform .8s ease;
+    position:absolute;
+}
+
+.open .flap{
+    transform:rotateX(180deg);
+}
+
+/* Question */
+.question{
+    font-size:24px;
+    color:white;
+    margin-bottom:15px;
+}
+
+/* Buttons */
+.buttons button{
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    margin:8px;
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+#yesBtn{
+    background:#ff006e;
+    color:white;
+}
+
+#noBtn{
+    background:white;
+    color:#ff006e;
+}
+
+.comment{
+    margin-top:12px;
+    min-height:24px;
+    color:white;
+    font-size:18px;
+}
+
+/* Popup screen */
+.popup{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    pointer-events:none;
+    transition:.8s ease;
+    background:linear-gradient(135deg,#ff4d6d,#ff8fab);
+}
+
+.popup.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* Vertical infinite carousel */
+.carousel{
+    position:absolute;
+    width:320px;
+    height:90%;
+    overflow:hidden;
+    opacity:.35;
+}
+
+.carousel-track{
+    display:flex;
+    flex-direction:column;
+    animation:scroll 20s linear infinite;
+}
+
+.carousel img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+
+@keyframes scroll{
+    0%{transform:translateY(0)}
+    100%{transform:translateY(-50%)}
+}
+
+/* Letter */
+.letter{
+    position:relative;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    max-width:420px;
+    text-align:center;
+    z-index:2;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.letter h2{
+    color:#ff006e;
+    margin-bottom:12px;
+}
+
+.letter p{
+    color:#444;
+    margin:8px 0;
+    line-height:1.5;
+}
+
+.hearts-row{
+    font-size:22px;
+    margin:10px 0;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .carousel{width:200px}
+    .letter{max-width:90%}
+}
+</style>
+</head>
+<body>
+
+<!-- floating hearts -->
+<div class="heart" style="left:10%">❤️</div>
+<div class="heart" style="left:30%;animation-delay:2s">💖</div>
+<div class="heart" style="left:60%;animation-delay:4s">💘</div>
+<div class="heart" style="left:80%;animation-delay:1s">💝</div>
+
+<!-- First screen -->
+<div class="screen" id="mainScreen">
+    <div class="envelope" id="envelope">
+        <div class="base"></div>
+        <div class="flap"></div>
+    </div>
+
+    <div class="question">Will you be my Valentine? 🧸❤️</div>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <div class="comment" id="commentBox"></div>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+
+    <div class="carousel">
+        <div class="carousel-track">
+            <img src="https://via.placeholder.com/600x900/ff99c8/ffffff?text=Memory+1">
+            <img src="https://via.placeholder.com/600x900/fec8d8/ffffff?text=Memory+2">
+            <img src="https://via.placeholder.com/600x900/ff99c8/ffffff?text=Memory+1">
+            <img src="https://via.placeholder.com/600x900/fec8d8/ffffff?text=Memory+2">
+        </div>
+    </div>
+
+    <div class="letter">
+        <div class="hearts-row">💖🧸💌❤️</div>
+        <h2>To My Kuchu Puchu</h2>
+        <p>My Baby gurl, I am the luckiest person to have you.</p>
+        <p>Except when your fighting me, Cutie ashtella overthinking madbeda I will stay in your life as long as you want me to</p>
+        <p>You complete me and I want you to be in peace with me</p>
+        <p>So i hope you believe in me a little more cause I am fighting for us my precious</p>
+        <p>I choose you today, tomorrow, and every day after.</p>
+        <div class="hearts-row">❤️💖🧸💌</div>
+    </div>
+
+</div>
+
+<script>
+let noClicks=0;
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const commentBox=document.getElementById("commentBox");
+const envelope=document.getElementById("envelope");
+const mainScreen=document.getElementById("mainScreen");
+const popup=document.getElementById("popup");
+
+const comments=[
+    "Irli Irli hingella madbard? 🥺",
+    "Gandu bek bek antha select madu? 😢",
+    "heh bidu ning option kodudh illa 💔"
+];
+
+noBtn.addEventListener("click",()=>{
+    if(noClicks<3){
+        commentBox.innerText=comments[noClicks];
+        noBtn.style.transform=`scale(${1-(noClicks+1)*0.2})`;
+        noClicks++;
+    }
+    if(noClicks===3){
+        setTimeout(()=>{noBtn.style.display="none"},300);
+    }
+});
+
+yesBtn.addEventListener("click",()=>{
+    envelope.classList.add("open");
+    setTimeout(()=>{
+        mainScreen.classList.add("hidden");
+        popup.classList.add("show");
+    },800);
+});
+</script>
+
+</body>
+</html>
